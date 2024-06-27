@@ -1,0 +1,1 @@
+{"inference_time": 5.76511287689209, "training_time": 2980.5910420417786, "n_interations": 4000, "learning_rate": 0.001, "architecture": "mask_rcnn_R_101_FPN_3x", "current_datetime": "06/26/2024 03:52:10"}

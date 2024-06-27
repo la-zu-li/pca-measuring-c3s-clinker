@@ -1,0 +1,94 @@
+WARNING [06/26 03:27:18 d2.data.datasets.coco]: 
+Category ids in annotations are not in [1, #categories]! We'll apply a mapping for you.
+
+[06/26 03:27:18 d2.data.datasets.coco]: Loaded 60 images in COCO format from /content/C3S-Clinker-3/valid/_annotations.coco.json
+[06/26 03:27:18 d2.data.build]: Distribution of instances among all 2 categories:
+|  category  | #instances   |  category  | #instances   |
+|:----------:|:-------------|:----------:|:-------------|
+|    c3s     | 0            |    c3s     | 1567         |
+|            |              |            |              |
+|   total    | 1567         |            |              |
+[06/26 03:27:18 d2.data.dataset_mapper]: [DatasetMapper] Augmentations used in inference: [ResizeShortestEdge(short_edge_length=(800, 800), max_size=1333, sample_style='choice')]
+[06/26 03:27:18 d2.data.common]: Serializing the dataset using: <class 'detectron2.data.common._TorchSerializedList'>
+[06/26 03:27:18 d2.data.common]: Serializing 60 elements to byte tensors and concatenating them all ...
+[06/26 03:27:18 d2.data.common]: Serialized dataset takes 0.43 MiB
+[06/26 03:27:18 d2.evaluation.evaluator]: Start inference on 60 batches
+
+os.fork() was called. os.fork() is incompatible with multithreaded code, and JAX is multithreaded, so this will likely lead to a deadlock.
+Plan failed with a cudnnException: CUDNN_BACKEND_EXECUTION_PLAN_DESCRIPTOR: cudnnFinalize Descriptor Failed cudnn_status: CUDNN_STATUS_NOT_SUPPORTED (Triggered internally at ../aten/src/ATen/native/cudnn/Conv_v8.cpp:919.)
+Plan failed with a cudnnException: CUDNN_BACKEND_EXECUTION_PLAN_DESCRIPTOR: cudnnFinalize Descriptor Failed cudnn_status: CUDNN_STATUS_NOT_SUPPORTED (Triggered internally at ../aten/src/ATen/native/cudnn/Conv_v8.cpp:919.)
+
+[06/26 03:27:21 d2.evaluation.evaluator]: Inference done 11/60. Dataloading: 0.0061 s/iter. Inference: 0.1636 s/iter. Eval: 0.0373 s/iter. Total: 0.2071 s/iter. ETA=0:00:10
+
+Plan failed with a cudnnException: CUDNN_BACKEND_EXECUTION_PLAN_DESCRIPTOR: cudnnFinalize Descriptor Failed cudnn_status: CUDNN_STATUS_NOT_SUPPORTED (Triggered internally at ../aten/src/ATen/native/cudnn/Conv_v8.cpp:919.)
+Plan failed with a cudnnException: CUDNN_BACKEND_EXECUTION_PLAN_DESCRIPTOR: cudnnFinalize Descriptor Failed cudnn_status: CUDNN_STATUS_NOT_SUPPORTED (Triggered internally at ../aten/src/ATen/native/cudnn/Conv_v8.cpp:919.)
+Plan failed with a cudnnException: CUDNN_BACKEND_EXECUTION_PLAN_DESCRIPTOR: cudnnFinalize Descriptor Failed cudnn_status: CUDNN_STATUS_NOT_SUPPORTED (Triggered internally at ../aten/src/ATen/native/cudnn/Conv_v8.cpp:919.)
+Plan failed with a cudnnException: CUDNN_BACKEND_EXECUTION_PLAN_DESCRIPTOR: cudnnFinalize Descriptor Failed cudnn_status: CUDNN_STATUS_NOT_SUPPORTED (Triggered internally at ../aten/src/ATen/native/cudnn/Conv_v8.cpp:919.)
+
+[06/26 03:27:26 d2.evaluation.evaluator]: Inference done 39/60. Dataloading: 0.0038 s/iter. Inference: 0.1585 s/iter. Eval: 0.0233 s/iter. Total: 0.1858 s/iter. ETA=0:00:03
+
+Plan failed with a cudnnException: CUDNN_BACKEND_EXECUTION_PLAN_DESCRIPTOR: cudnnFinalize Descriptor Failed cudnn_status: CUDNN_STATUS_NOT_SUPPORTED (Triggered internally at ../aten/src/ATen/native/cudnn/Conv_v8.cpp:919.)
+Plan failed with a cudnnException: CUDNN_BACKEND_EXECUTION_PLAN_DESCRIPTOR: cudnnFinalize Descriptor Failed cudnn_status: CUDNN_STATUS_NOT_SUPPORTED (Triggered internally at ../aten/src/ATen/native/cudnn/Conv_v8.cpp:919.)
+os.fork() was called. os.fork() is incompatible with multithreaded code, and JAX is multithreaded, so this will likely lead to a deadlock.
+
+[06/26 03:27:29 d2.evaluation.evaluator]: Total inference time: 0:00:10.000837 (0.181833 s / iter per device, on 1 devices)
+[06/26 03:27:29 d2.evaluation.evaluator]: Total inference pure compute time: 0:00:08 (0.157481 s / iter per device, on 1 devices)
+[06/26 03:27:29 d2.evaluation.coco_evaluation]: Preparing results for COCO format ...
+[06/26 03:27:29 d2.evaluation.coco_evaluation]: Saving results to C3S-Clinker/mask_rcnn_R_101_FPN_3x/coco_instances_results.json
+[06/26 03:27:29 d2.evaluation.coco_evaluation]: Evaluating predictions with unofficial COCO API...
+Loading and preparing results...
+DONE (t=0.00s)
+creating index...
+index created!
+[06/26 03:27:29 d2.evaluation.fast_eval_api]: Evaluate annotation type *bbox*
+[06/26 03:27:30 d2.evaluation.fast_eval_api]: COCOeval_opt.evaluate() finished in 0.03 seconds.
+[06/26 03:27:30 d2.evaluation.fast_eval_api]: Accumulating evaluation results...
+[06/26 03:27:30 d2.evaluation.fast_eval_api]: COCOeval_opt.accumulate() finished in 0.01 seconds.
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.573
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.764
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.647
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.290
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.559
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.670
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=  1 ] = 0.034
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 10 ] = 0.291
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.645
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.373
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.626
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.741
+[06/26 03:27:30 d2.evaluation.coco_evaluation]: Evaluation results for bbox: 
+|   AP   |  AP50  |  AP75  |  APs   |  APm   |  APl   |
+|:------:|:------:|:------:|:------:|:------:|:------:|
+| 57.343 | 76.397 | 64.687 | 28.986 | 55.861 | 67.048 |
+[06/26 03:27:30 d2.evaluation.coco_evaluation]: Per-category bbox AP: 
+| category   | AP   | category   | AP     |
+|:-----------|:-----|:-----------|:-------|
+| c3s        | nan  | c3s        | 57.343 |
+Loading and preparing results...
+DONE (t=0.01s)
+creating index...
+index created!
+[06/26 03:27:30 d2.evaluation.fast_eval_api]: Evaluate annotation type *segm*
+[06/26 03:27:30 d2.evaluation.fast_eval_api]: COCOeval_opt.evaluate() finished in 0.10 seconds.
+[06/26 03:27:30 d2.evaluation.fast_eval_api]: Accumulating evaluation results...
+[06/26 03:27:30 d2.evaluation.fast_eval_api]: COCOeval_opt.accumulate() finished in 0.01 seconds.
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.589
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.777
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.659
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.264
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.556
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.713
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=  1 ] = 0.034
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 10 ] = 0.297
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.654
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.379
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.635
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.751
+[06/26 03:27:30 d2.evaluation.coco_evaluation]: Evaluation results for segm: 
+|   AP   |  AP50  |  AP75  |  APs   |  APm   |  APl   |
+|:------:|:------:|:------:|:------:|:------:|:------:|
+| 58.901 | 77.705 | 65.865 | 26.438 | 55.647 | 71.325 |
+[06/26 03:27:30 d2.evaluation.coco_evaluation]: Per-category segm AP: 
+| category   | AP   | category   | AP     |
+|:-----------|:-----|:-----------|:-------|
+| c3s        | nan  | c3s        | 58.901 |
