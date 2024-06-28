@@ -3,11 +3,14 @@ import json
 import cv2 as cv
 import numpy as np
 import pandas as pd
+import pickle as pkl
+from time import time
 
 from measure_methods import *
 
-DF_PATH = "data"
 PKL_PATH = ""
+DF_PATH = "data"
+OUTPUT_PATH = "data"
 
 with open(os.path.join(PKL_PATH, "dt_masks.pkl"), "rb") as f:
     all_dt_masks = pkl.load(f)
@@ -49,4 +52,4 @@ for i,row in df.iterrows():
         df.at[i,f"{name}_time"] = end-start
         df.at[i,f"{name}_measure"] = length
 
-df.to_csv(os.path.join(DF_PATH, "eval_measuring.csv"))
+df.to_csv(os.path.join(OUTPUT_PATH, "eval_measuring.csv"))

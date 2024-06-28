@@ -3,7 +3,8 @@ import json
 import numpy as np
 import pandas as pd
 import pickle as pkl
-from utils import all_iou_combinations
+
+from utils import poly_to_mask, all_iou_combinations
 
 OUTPUT_PATH = "data"
 JSON_PATH = "data"
@@ -17,7 +18,8 @@ with open(os.path.join(PKL_PATH, "dt_masks.pkl"), "rb") as f:
     all_dt_masks = pkl.load(f)
 
 gt_anns_measures = anns["annotations"]
-filename_and_id = [[x["id"], x["file_name"]] for x in anns["images"]]
+imgs_data = anns["images"]
+filename_and_id = [[x["id"], x["file_name"]] for x in imgs_data]
 id_to_filename = dict(filename_and_id)
 
 all_eval_data = []
@@ -66,7 +68,7 @@ for img_id, anns_measures in list(gt_anns_measures.items()):
 df = pd.DataFrame(all_eval_data, columns=[
     "filename", "image_id", "id", "area", "ground-truth_measure", 
     "detected_mask_id", "detected_mask_area", "iou"])
-df_summary = pd.DataFrame({"total_FP": total_fps, "total_FN":total_fns})
+df_summary = pd.DataFrame({"total_FP": [total_fps], "total_FN": [total_fns]})
 
 df.to_csv(os.path.join(OUTPUT_PATH, "eval_data.csv"))
-df_summary.to_csv(os.path.join(PATH, "data_summary.json"))
+df_summary.to_csv(os.path.join(OUTPUT_PATH, "data_summary.json"))
