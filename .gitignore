@@ -1,6 +1,5 @@
-__pycache__
 .vscode
 .ipynb_checkpoints
 *.pkl
-data/eval_data.json
-data/eval_measuring.csv
+data/*
+__pycache__
