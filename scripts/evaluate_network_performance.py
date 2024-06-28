@@ -51,12 +51,12 @@ for img_id, anns_measures in list(gt_anns_measures.items()):
     total_fns += len(fns)
 
     gt_ious = ious_mx.max(axis=1)
-    gt_ious[fns] = -1
+    gt_ious[fns] = np.nan
     corresp_dt_index = ious_mx.argmax(axis=1)
     corresp_dt_index[fns] = -1
     
     gt_areas = [x.sum() for x in gt_masks]
-    dt_areas = [dt_masks[i].sum() if i>=0 else -1 for i in corresp_dt_index]
+    dt_areas = [dt_masks[i].sum() if i>=0 else np.nan for i in corresp_dt_index]
     
     # append data
     filename = id_to_filename[img_id]
@@ -70,5 +70,5 @@ df = pd.DataFrame(all_eval_data, columns=[
     "detected_mask_id", "detected_mask_area", "iou"])
 df_summary = pd.DataFrame({"total_FP": [total_fps], "total_FN": [total_fns]})
 
-df.to_csv(os.path.join(OUTPUT_PATH, "eval_data.csv"))
-df_summary.to_csv(os.path.join(OUTPUT_PATH, "data_summary.json"))
+df.to_csv(os.path.join(OUTPUT_PATH, "eval_data.csv"), index=False)
+df_summary.to_csv(os.path.join(OUTPUT_PATH, "data_summary.csv"), index=False)

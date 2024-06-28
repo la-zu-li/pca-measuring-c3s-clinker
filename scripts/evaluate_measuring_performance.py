@@ -23,17 +23,17 @@ methods = [longest_diagonal_pca, longest_diagonal_centroid,
 kwargs_methods = [{}, {}, {}, {}]
 
 # creating and initializing new columns
-df["find-contour_time"] = -1.0
+df["find-contour_time"] = np.nan
 for method in name_methods:
-    df[f"{method}_measure"] = -1.0
-    df[f"{method}_time"] = -1.0
+    df[f"{method}_measure"] = np.nan
+    df[f"{method}_time"] = np.nan
     
 for i,row in df.iterrows():
     img_id = row["image_id"]
     dt_mask_id = row["detected_mask_id"]
     
     if dt_mask_id < 0: continue
-    # print(i)
+    
     dt_mask = all_dt_masks[img_id][dt_mask_id]
     
     start = time()
@@ -52,4 +52,4 @@ for i,row in df.iterrows():
         df.at[i,f"{name}_time"] = end-start
         df.at[i,f"{name}_measure"] = length
 
-df.to_csv(os.path.join(OUTPUT_PATH, "eval_measuring.csv"))
+df.to_csv(os.path.join(OUTPUT_PATH, "eval_measuring.csv"), index=False)
