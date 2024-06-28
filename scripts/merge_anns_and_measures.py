@@ -1,14 +1,15 @@
 import os
 import json
 
-PATH = "images test"
+DS_PATH = "images test"
+GT_MEASURES_PATH = "data"
 OUTPUT_PATH = "data"
-with open(os.path.join(PATH, "_annotations.coco.json"), "r") as f:
+with open(os.path.join(DS_PATH, "_annotations.coco.json"), "r") as f:
     anns_dict = json.load(f)
 img_data = anns_dict["images"]
 anns = anns_dict["annotations"]
 
-with open("all_measures.json", "r") as f:
+with open(os.path.join(GT_MEASURES_PATH, "all_measures.json"), "r") as f:
     all_measures_dict = json.load(f)
 measured_images = all_measures_dict["measured_images"]
 measures = all_measures_dict["measures"]
