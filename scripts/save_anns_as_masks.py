@@ -6,7 +6,7 @@ from glob import glob
 
 from utils import poly_to_mask
 
-IMAGES_PATH = "images test"
+IMAGES_PATH = "c3s-clinker-dataset/test"
 OUTPUT_PATH = "masks"
 
 imgs_paths = glob(os.path.join(IMAGES_PATH, "*jpg"))

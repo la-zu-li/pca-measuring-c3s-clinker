@@ -7,14 +7,14 @@ import pickle as pkl
 from utils import poly_to_mask, all_iou_combinations
 
 OUTPUT_PATH = "data"
-JSON_PATH = "data"
-PKL_PATH = ""
+JSON_PATH = "data/anns_w_measure.json"
+PKL_PATH = "dt_masks.pkl"
 IOU_THRESH = 0.5 # threshold used to validate if it's a hit or not
 
-with open(os.path.join(JSON_PATH, "anns_w_measure.json"), "r") as f:
+with open(JSON_PATH, "r") as f:
     anns = json.load(f)
 
-with open(os.path.join(PKL_PATH, "dt_masks.pkl"), "rb") as f:
+with open(PKL_PATH, "rb") as f:
     all_dt_masks = pkl.load(f)
 
 gt_anns_measures = anns["annotations"]

@@ -4,7 +4,7 @@ import pandas as pd
 from glob import glob
 
 PATH = "masks"
-OUTPUT_PATH = "data"
+OUTPUT_PATH = "data/all_measures.json"
 folders = sorted(os.listdir(PATH), key=int)
 
 measured_images = []
@@ -27,5 +27,5 @@ gt_measurement_data = {
     "measured_images": measured_images,
     "measures": all_gt_measures,
 }
-with open(os.path.join(OUTPUT_PATH, "all_measures.json"), "w") as f:
+with open(OUTPUT_PATH, "w") as f:
     json.dump(gt_measurement_data, f)

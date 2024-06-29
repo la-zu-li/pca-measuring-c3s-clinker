@@ -8,14 +8,14 @@ from time import time
 
 from measure_methods import *
 
-PKL_PATH = ""
-DF_PATH = "data"
-OUTPUT_PATH = "data"
+PKL_PATH = "dt_masks.pkl"
+DF_PATH = "data/eval_data.csv"
+OUTPUT_PATH = "data/eval_measuring.csv"
 
-with open(os.path.join(PKL_PATH, "dt_masks.pkl"), "rb") as f:
+with open(PKL_PATH, "rb") as f:
     all_dt_masks = pkl.load(f)
     
-df = pd.read_csv(os.path.join(DF_PATH, "eval_data.csv"))
+df = pd.read_csv(DF_PATH)
 
 name_methods = ["pca", "centroid", "lr", "brute-force"]
 methods = [longest_diagonal_pca, longest_diagonal_centroid,
@@ -52,4 +52,4 @@ for i,row in df.iterrows():
         df.at[i,f"{name}_time"] = end-start
         df.at[i,f"{name}_measure"] = length
 
-df.to_csv(os.path.join(OUTPUT_PATH, "eval_measuring.csv"), index=False)
+df.to_csv(OUTPUT_PATH, index=False)

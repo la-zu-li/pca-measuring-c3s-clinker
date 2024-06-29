@@ -2,14 +2,14 @@ import os
 import json
 
 DS_PATH = "c3s-clinker-dataset/test"
-GT_MEASURES_PATH = "data"
-OUTPUT_PATH = "data"
+GT_MEASURES_PATH = "data/all_measures.json"
+OUTPUT_PATH = "data/anns_w_measure.json"
 with open(os.path.join(DS_PATH, "_annotations.coco.json"), "r") as f:
     anns_dict = json.load(f)
 img_data = anns_dict["images"]
 anns = anns_dict["annotations"]
 
-with open(os.path.join(GT_MEASURES_PATH, "all_measures.json"), "r") as f:
+with open(GT_MEASURES_PATH, "r") as f:
     all_measures_dict = json.load(f)
 measured_images = all_measures_dict["measured_images"]
 measures = all_measures_dict["measures"]
@@ -27,5 +27,5 @@ for ann, measure in zip(anns_measured, measures):
     anns_w_measure[img_id].append(ann_w_measure)
 
 anns_w_measure_n_images = {"images": img_data, "annotations": anns_w_measure}
-with open(os.path.join(OUTPUT_PATH, "anns_w_measure.json"), "w") as f:
+with open(OUTPUT_PATH, "w") as f:
     json.dump(anns_w_measure_n_images, f)
