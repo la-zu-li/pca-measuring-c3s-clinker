@@ -35,20 +35,20 @@ for img_id, anns_measures in list(gt_anns_measures.items()):
     gt_measures = [x["measure"] for x in anns_measures]
     gt_masks = [poly_to_mask(x, (height, width), True) for x in gt_poly]
     dt_masks = all_dt_masks[img_id]
-
+    
     ious_mx = all_iou_combinations(gt_masks, dt_masks)
     ious_mx_hit = ious_mx >= IOU_THRESH
     
     hit_sum_gt = ious_mx_hit.sum(axis=1)
     hit_sum_dt = ious_mx_hit.sum(axis=0)
     
-    fns = np.where(hit_sum_gt == 0)
-    tps = np.where(hit_sum_gt > 0)
+    fns = hit_sum_gt == 0
+    tps = ~fns
     
     # increase total number of false positives and negatives
-    total_fps += np.count_nonzero(hit_sum_dt == 0)
-    total_fps += np.count_nonzero(hit_sum_gt > 1)
-    total_fns += len(fns)
+    total_fps += (hit_sum_dt == 0).sum()
+    total_fps += (hit_sum_gt[tps] - 1).sum()
+    total_fns += fns.sum()
 
     gt_ious = ious_mx.max(axis=1)
     gt_ious[fns] = np.nan
@@ -57,7 +57,7 @@ for img_id, anns_measures in list(gt_anns_measures.items()):
     
     gt_areas = [x.sum() for x in gt_masks]
     dt_areas = [dt_masks[i].sum() if i>=0 else np.nan for i in corresp_dt_index]
-    
+
     # append data
     filename = id_to_filename[img_id]
     img_ids = [img_id for _ in anns_measures]
