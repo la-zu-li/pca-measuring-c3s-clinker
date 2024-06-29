@@ -1,7 +1,7 @@
 import os
 import json
 
-DS_PATH = "images test"
+DS_PATH = "c3s-clinker-dataset/test"
 GT_MEASURES_PATH = "data"
 OUTPUT_PATH = "data"
 with open(os.path.join(DS_PATH, "_annotations.coco.json"), "r") as f:
