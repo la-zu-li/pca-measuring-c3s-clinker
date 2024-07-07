@@ -51,7 +51,7 @@ for img_id, anns_measures in list(gt_anns_measures.items()):
     total_fns += fns.sum()
 
     gt_ious = ious_mx.max(axis=1)
-    gt_ious[fns] = np.nan
+    # gt_ious[fns] = np.nan
     corresp_dt_index = ious_mx.argmax(axis=1)
     corresp_dt_index[fns] = -1
     
