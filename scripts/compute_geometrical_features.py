@@ -13,7 +13,7 @@ OUTPUT_PATH = "data/geometric_features.csv"
 with open(JSON_PATH, "r") as f:
     all_anns = json.load(f)
 imgs_data = all_anns["images"]
-all_anns = all_anns["annotations"]
+all_anns =  all_anns["annotations"]
 
 # preprocess annotations to facilitate indexing
 for key, anns in all_anns.items():
@@ -47,11 +47,11 @@ for i,row in df.iterrows():
     _,min_rect_dimensions,_ = cv.minAreaRect(contour)
     min_rect_dimensions = sorted(min_rect_dimensions)
  
-    area = mask.sum()
-    perimeter = contour.shape[0]
+    area = cv.contourArea(contour)
+    perimeter = cv.arcLength(contour, True)
     rect_w, rect_l = min_rect_dimensions
     asp_ratio = rect_w / rect_l
-    circularity = area / (perimeter**2)
+    circularity = (4*np.pi*area) / (perimeter**2)
     rect_area = rect_w * rect_l
     rectangularity = area / rect_area
     hull_area = cv.contourArea(hull)
