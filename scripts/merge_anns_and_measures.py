@@ -4,6 +4,7 @@ import json
 DS_PATH = "c3s-clinker-dataset/test"
 GT_MEASURES_PATH = "data/all_measures.json"
 OUTPUT_PATH = "data/anns_w_measure.json"
+
 with open(os.path.join(DS_PATH, "_annotations.coco.json"), "r") as f:
     anns_dict = json.load(f)
 img_data = anns_dict["images"]

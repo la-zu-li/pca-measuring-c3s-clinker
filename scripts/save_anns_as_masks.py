@@ -4,7 +4,7 @@ import os
 import json
 from glob import glob
 
-from utils import poly_to_mask
+from lib.utils import poly_to_mask
 
 IMAGES_PATH = "c3s-clinker-dataset/test"
 OUTPUT_PATH = "masks"

@@ -4,7 +4,7 @@ import cv2 as cv
 import numpy as np
 import pandas as pd
 
-from utils import poly_to_mask
+from lib.utils import poly_to_mask
 
 JSON_PATH = "data/anns_w_measure.json"
 DF_PATH = "data/eval_measuring.csv"

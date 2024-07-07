@@ -4,7 +4,7 @@ import numpy as np
 import pandas as pd
 import pickle as pkl
 
-from utils import poly_to_mask, all_iou_combinations
+from lib.utils import poly_to_mask, all_iou_combinations
 
 OUTPUT_PATH = "data"
 JSON_PATH = "data/anns_w_measure.json"
