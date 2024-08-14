@@ -1,6 +1,17 @@
 import numpy as np
 import cv2 as cv
 
+# scale of micrometers per pixel used on clinker images studied
+SCALE_UM_BY_PX = 0.3105590062111801
+
+def px_to_micrometers(distance_pixels, scale=SCALE_UM_BY_PX):
+    distance_in_micrometers = distance_pixels * scale
+    return distance_in_micrometers
+
+def micrometers_to_px(distance_micrometers, scale=SCALE_UM_BY_PX):
+    distance_in_pixels = distance_micrometers / scale
+    return distance_in_pixels
+
 def poly_to_mask(polygon, image_size, bool_mask=False) -> np.ndarray:
     mask = np.zeros(image_size, dtype=np.uint8)
     polygon_points = np.array(polygon).reshape(-1, 2).astype(np.int32)
@@ -24,3 +35,23 @@ def all_iou_combinations(masks1: list[np.ndarray], masks2: list[np.ndarray]) -> 
         for j in range(n_masks2):
             ious[i,j] = iou_masks(masks1[i], masks2[j])
     return ious
+
+def split_img_rec(img, iter=3):
+    if iter<=0:
+        return [img]
+
+    img = np.rot90(img)
+    half = img.shape[0] // 2
+    b,a = img[:half], img[half:]
+
+    return split_img_rec(a, iter-1) + split_img_rec(b, iter-1)
+
+def apply_closing_3dmasks(masks, ksize=5, iter=1):
+
+    kernel = cv.getStructuringElement(cv.MORPH_ELLIPSE, (ksize, ksize))
+    closing = lambda x: cv.morphologyEx(x, cv.MORPH_CLOSE, kernel, iterations=iter)
+
+    masks = masks.astype(np.uint8)
+    masks = np.stack([closing(x) for x in masks])
+    masks = masks.astype(bool)
+    return masks
