@@ -62,14 +62,19 @@ def join_crops_masks(l_mask, r_mask, iou_thresh):
     l_masks_list = [m for m in l_mask]
     r_masks_list = [m for m in r_mask]
 
-    # merge matched masks
+    # merge matched masks    new_merged_masks = []
     for i,j in zip(border_masks_idxs_l, corresp_border_masks_idxs_r):
         left_mask = l_masks_list[i]
         right_mask = r_masks_list[j]
-        l_masks_list[i] = np.logical_or(left_mask, right_mask)
+        merged_mask = np.logical_or(left_mask, right_mask)
+
+        new_merged_masks.append(merged_mask)
 
     # remove redundant masks
-    for j in sorted(corresp_border_masks_idxs_r, reverse=True):
+    border_masks_idxs_l[::-1].sort()
+    corresp_border_masks_idxs_r[::-1].sort()
+    for i,j in zip(border_masks_idxs_l, corresp_border_masks_idxs_r):
+        l_masks_list.pop(i)
         r_masks_list.pop(j)
 
     # stack everything as a single mask
