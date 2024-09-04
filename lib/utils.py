@@ -1,7 +1,7 @@
 import numpy as np
 import cv2 as cv
 
-# scale of micrometers per pixel used on clinker images studied
+# scale of micrometers per pixel used on studied clinker images
 SCALE_UM_BY_PX = 0.3105590062111801
 
 def px_to_micrometers(distance_pixels, scale=SCALE_UM_BY_PX):
@@ -55,3 +55,21 @@ def apply_closing_3dmasks(masks, ksize=5, iter=1):
     masks = np.stack([closing(x) for x in masks])
     masks = masks.astype(bool)
     return masks
+
+def centroid(blob):
+    m = cv.moments(blob)
+    centroid_x = int(m["m10"] / m["m00"])
+    centroid_y = int(m["m01"] / m["m00"])
+    return (centroid_x, centroid_y)
+
+def contour(blob):
+    contours,_ = cv.findContours(blob, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_NONE)
+    cont_size = lambda x: x.shape[0]
+    contour = max(contours, key=cont_size)
+    return contour
+
+def as_bw_images(mask3d):
+    mask3d_uint = mask3d.astype(np.uint8)
+    mask3d_bw = mask3d_uint * 255
+    bw_images = [img for img in mask3d_bw]
+    return bw_images
