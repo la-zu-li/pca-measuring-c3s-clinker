@@ -31,7 +31,6 @@ def expand_masks_size(l_mask, r_mask):
     return l_mask_concat, r_mask_concat
 
 def join_crops_masks(l_mask, r_mask, iou_thresh):
-    # print(l_mask.shape, r_mask.shape)
     # select masks that are on the limit between the crops
     idxs, borders = np.where(l_mask[:,:,-1])
     border_masks_idxs_l, splits = np.unique(idxs, return_index=True)
@@ -40,6 +39,11 @@ def join_crops_masks(l_mask, r_mask, iou_thresh):
     idxs, borders = np.where(r_mask[:,:, 0])
     border_masks_idxs_r, splits = np.unique(idxs, return_index=True)
     r_borders = np.split(borders, splits[1:])
+
+    # in case there's no masks in the border of either image 
+    if border_masks_idxs_l.size == 0 or border_masks_idxs_r.size == 0:
+        l_mask, r_mask = expand_masks_size(l_mask, r_mask)
+        return np.concatenate([l_mask, r_mask])
 
     # computes IoU between two borders
     ious = all_iou_arrays(l_borders, r_borders)
