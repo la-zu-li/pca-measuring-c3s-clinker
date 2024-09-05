@@ -59,30 +59,32 @@ def join_crops_masks(l_mask, r_mask, iou_thresh):
     corresp_border_masks_idxs_r = border_masks_idxs_r[max_iou_idx]
 
     l_mask, r_mask = expand_masks_size(l_mask, r_mask)
-    l_masks_list = [m for m in l_mask]
-    r_masks_list = [m for m in r_mask]
-
+    
     # merge matched masks
     new_merged_masks = []
     for i,j in zip(border_masks_idxs_l, corresp_border_masks_idxs_r):
-        left_mask = l_masks_list[i]
-        right_mask = r_masks_list[j]
+        left_mask = l_mask[i]
+        right_mask = r_mask[j]
         merged_mask = np.logical_or(left_mask, right_mask)
 
         new_merged_masks.append(merged_mask)
 
+    l_mask = [m for m in l_mask]
+    r_mask = [m for m in r_mask]    
+
     # remove redundant masks
     border_masks_idxs_l[::-1].sort()
     corresp_border_masks_idxs_r[::-1].sort()
+
     for i,j in zip(border_masks_idxs_l, corresp_border_masks_idxs_r):
-        l_masks_list.pop(i)
-        r_masks_list.pop(j)
+        l_mask.pop(i)
+        r_mask.pop(j)
 
     # stack everything as a single mask
-    all_masks_list = l_masks_list + r_masks_list
-    all_masks = np.stack(all_masks_list)
+    full_mask = l_mask + r_mask + new_merged_masks
+    full_mask = np.stack(full_mask)
 
-    return all_masks
+    return full_mask
 
 # join the masks recursively. Works for crops of images split recursively.
 def join_crops_masks_rec(crops_masks: list[np.ndarray], iou_thresh=0.5):
