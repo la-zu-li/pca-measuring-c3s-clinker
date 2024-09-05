@@ -56,13 +56,13 @@ def apply_closing_3dmasks(masks, ksize=5, iter=1):
     masks = masks.astype(bool)
     return masks
 
-def centroid(blob):
+def calc_centroid(blob):
     m = cv.moments(blob)
     centroid_x = int(m["m10"] / m["m00"])
     centroid_y = int(m["m01"] / m["m00"])
     return (centroid_x, centroid_y)
 
-def contour(blob):
+def contour_of_blob(blob):
     contours,_ = cv.findContours(blob, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_NONE)
     cont_size = lambda x: x.shape[0]
     contour = max(contours, key=cont_size)
